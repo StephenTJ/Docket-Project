@@ -5,6 +5,7 @@ import process_xlsx as px
 
 app = Flask(__name__)
 
+# Create a data frame to store the table
 data = {
     'Name': [],
     'StartTime': [],
@@ -16,6 +17,8 @@ data = {
 }
 
 df = pd.DataFrame(data)
+
+# End point to accept the data and display data
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -39,16 +42,13 @@ def root():
             "Supplier": inputSupplier,
             "PurchaseOrder": inputPurchaseOrder
         }
-
         df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
 
     df['Index'] = range(1, len(df) + 1)
     data_list = df.to_json(orient="records")
     data_list = json.loads(data_list)
     supplier_list = json.loads(px.grouped_data.to_json(orient="records"))
-
-    supplier_list_str = px.grouped_data.to_json(orient="records")
-    return render_template('index.html', data=data_list, supplier_list=supplier_list, supplier_list_str=supplier_list_str)
+    return render_template('index.html', data=data_list, supplier_list=supplier_list)
 
 
 if __name__ == '__main__':
