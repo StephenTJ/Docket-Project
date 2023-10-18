@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap.css" />
+  </head>
+  <script src="/static/bootstrap.js"></script>
+  <body style="background-color: #f3e7d3">
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+      <a class="navbar-brand m-2">Docket Project</a>
+      <form class="form-inline">
+        <button
+          class="btn btn-secondary my-2 my-sm-0 m-2"
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Upload CSV
+        </button>
+      </form>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Form Data -->
+    <form method="POST" action="/">
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="inputName" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputName"
+              name="inputName"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputStartTime" class="form-label">Start Time</label>
+            <input
+              type="time"
+              class="form-control"
+              id="inputStartTime"
+              name="inputStartTime"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputEndTime" class="form-label">End Time</label>
+            <input
+              type="time"
+              class="form-control"
+              id="inputEndTime"
+              name="inputEndTime"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputHours" class="form-label">No. of Hours</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputHours"
+              name="inputHours"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputRate" class="form-label">Rate Per Hour</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputRate"
+              name="inputRate"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="inputSupplier" class="form-label">Supplier Name</label>
+            <select class="form-select" id="inputSupplier" name="inputSupplier">
+              <option value="$10">$10 per Hour</option>
+              <option value="$15">$15 per Hour</option>
+              <option value="$20">$20 per Hour</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputPurchaseOrder" class="form-label"
+              >Purchase Order</label
+            >
+            <select
+              class="form-select"
+              id="inputPurchaseOrder"
+              name="inputPurchaseOrder"
+            >
+              <option value="$10">$10 per Hour</option>
+              <option value="$15">$15 per Hour</option>
+              <option value="$20">$20 per Hour</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Add Data</label>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Form Data-->
+
+    <!-- Table Data-->
+
+    <table class="table table-borderless table-dark">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">Hours</th>
+          <th scope="col">Rate</th>
+          <th scope="col">Supplier</th>
+          <th scope="col">Purchase Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in data %}
+        <tr>
+          <td>{{ x.Index }}</td>
+          <td>{{ x.Name }}</td>
+          <td>{{ x.StartTime }}</td>
+          <td>{{ x.EndTime }}</td>
+          <td>{{ x.Hours }}</td>
+          <td>{{ x.Rate }}</td>
+          <td>{{ x.Supplier }}</td>
+          <td>{{ x.PurchaseOrder }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Table Data-->
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Upload CSV</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="exampleFormControlFile1"></label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="exampleFormControlFile1"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+  </body>
+</html>
