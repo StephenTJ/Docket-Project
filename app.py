@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import json
+import process_xlsx as px
 
 app = Flask(__name__)
 
 data = {
-    'Name': ['John', 'Alice', 'Bob'],
-    'StartTime': ['09:00:00', '08:30:00', '10:15:00'],
-    'EndTime': ['17:00:00', '16:45:00', '18:30:00'],
-    'Hours': [8, 8.5, 8.25],
-    'Rate': [10.0, 15.0, 20.0],
-    'Supplier': ['Supplier A', 'Supplier B', 'Supplier C'],
-    'PurchaseOrder': ['PO-001', 'PO-002', 'PO-003'],
+    'Name': [],
+    'StartTime': [],
+    'EndTime': [],
+    'Hours': [],
+    'Rate': [],
+    'Supplier': [],
+    'PurchaseOrder': [],
 }
 
 df = pd.DataFrame(data)
@@ -47,11 +48,12 @@ def root():
 
     df['Index'] = range(1, len(df) + 1)
     data_list = df.to_json(orient="records")
-    print(type(data_list))
     data_list = json.loads(data_list)
-    print(data_list)
+    supplier_list = json.loads(px.grouped_data.to_json(orient="records"))
 
-    return render_template('index.html', data=data_list)
+    supplier_list_str = px.grouped_data.to_json(orient="records")
+    print(supplier_list_str)
+    return render_template('index.html', data=data_list, supplier_list=supplier_list, supplier_list_str=supplier_list_str)
 
 
 if __name__ == '__main__':
