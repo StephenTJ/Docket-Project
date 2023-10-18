@@ -16,12 +16,11 @@ data = {
 }
 
 df = pd.DataFrame(data)
-print(df)
 
 
 @app.route("/", methods=['GET', 'POST'])
 def root():
-    global df  # Declare df as a global variable to modify it
+    global df
     if request.method == 'POST':
         inputName = request.form.get('inputName')
         inputStartTime = request.form.get('inputStartTime')
@@ -43,16 +42,12 @@ def root():
 
         df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
 
-        print(inputName, inputStartTime, inputEndTime, inputHours,
-              inputRate, inputSupplier, inputPurchaseOrder)
-
     df['Index'] = range(1, len(df) + 1)
     data_list = df.to_json(orient="records")
     data_list = json.loads(data_list)
     supplier_list = json.loads(px.grouped_data.to_json(orient="records"))
 
     supplier_list_str = px.grouped_data.to_json(orient="records")
-    print(supplier_list_str)
     return render_template('index.html', data=data_list, supplier_list=supplier_list, supplier_list_str=supplier_list_str)
 
 
